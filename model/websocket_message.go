@@ -78,7 +78,8 @@ const (
 	WebsocketEventSubscribe                           = "subscribe"
 	WebsocketEventUnsubscribe                         = "unsubscribe"
 
-	WebsocketSubjectInsights WebsocketSubjectID = "insights"
+	WebsocketSubjectActivityFeed WebsocketSubjectID = "activity_feed"
+	WebsocketSubjectActiveCalls  WebsocketSubjectID = "active_calls"
 )
 
 type WebSocketMessage interface {
@@ -166,7 +167,8 @@ type WebsocketSubjectID string
 
 func (si WebsocketSubjectID) IsValid() bool {
 	_, has := map[WebsocketSubjectID]bool{
-		WebsocketSubjectInsights: true,
+		WebsocketSubjectActivityFeed: true,
+		WebsocketSubjectActiveCalls:  true,
 	}[si]
 	return has
 }
