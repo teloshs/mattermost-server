@@ -547,6 +547,13 @@ func (h *Hub) Start() {
 					}
 					continue
 				}
+				if subjectID := msg.GetBroadcast().SubjectID; subjectID != "" {
+					candidates := h.connectionIndex.ForSubject(subjectID)
+					for webConn := range candidates {
+						broadcast(webConn)
+					}
+					continue
+				}
 				candidates := h.connectionIndex.All()
 				for webConn := range candidates {
 					broadcast(webConn)
@@ -681,6 +688,10 @@ func (i *hubConnectionIndex) Has(wc *WebConn) bool {
 // ForUser returns all connections for a user ID.
 func (i *hubConnectionIndex) ForUser(id string) []*WebConn {
 	return i.byUserId[id]
+}
+
+func (i *hubConnectionIndex) ForSubject(id model.WebsocketSubjectID) map[*WebConn]bool {
+	return i.bySubscription[id]
 }
 
 // All returns the full webConn index.
