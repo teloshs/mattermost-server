@@ -253,6 +253,10 @@ func GenerateLimitedClientConfig(c *model.Config, telemetryID string, license *m
 	props["GitLabButtonColor"] = *c.GitLabSettings.ButtonColor
 	props["GitLabButtonText"] = *c.GitLabSettings.ButtonText
 
+	props["EnableSignUpWithTelos"] = strconv.FormatBool(*c.TelosLoginSettings.Enable)
+	props["TelosLoginButtonColor"] = *c.TelosLoginSettings.ButtonColor
+	props["TelosLoginButtonText"] = *c.TelosLoginSettings.ButtonText
+
 	props["TermsOfServiceLink"] = *c.SupportSettings.TermsOfServiceLink
 	props["PrivacyPolicyLink"] = *c.SupportSettings.PrivacyPolicyLink
 	props["AboutLink"] = *c.SupportSettings.AboutLink

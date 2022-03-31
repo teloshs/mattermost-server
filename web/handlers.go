@@ -232,7 +232,7 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 		// Set content security policy. This is also specified in the root.html of the webapp in a meta tag.
 		w.Header().Set("Content-Security-Policy", fmt.Sprintf(
-			"frame-ancestors 'self'; script-src 'self' cdn.rudderlabs.com%s%s%s",
+			"frame-ancestors 'self'; script-src 'self' 'unsafe-eval' cdn.rudderlabs.com%s%s%s",
 			cloudCSP,
 			h.cspShaDirective,
 			devCSP,

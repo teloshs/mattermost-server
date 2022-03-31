@@ -1298,6 +1298,8 @@ func TestConfigSanitize(t *testing.T) {
 	assert.Equal(t, FakeSetting, *c.FileSettings.AmazonS3SecretAccessKey)
 	assert.Equal(t, FakeSetting, *c.EmailSettings.SMTPPassword)
 	assert.Equal(t, FakeSetting, *c.GitLabSettings.Secret)
+	assert.Equal(t, FakeSetting, *c.TelosLoginSettings.Secret)
+	assert.Equal(t, FakeSetting, *c.TelosLoginSettings.Secret)
 	assert.Equal(t, FakeSetting, *c.OpenIdSettings.Secret)
 	assert.Equal(t, FakeSetting, *c.SqlSettings.DataSource)
 	assert.Equal(t, FakeSetting, *c.SqlSettings.AtRestEncryptKey)

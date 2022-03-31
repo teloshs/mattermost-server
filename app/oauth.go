@@ -584,6 +584,7 @@ func (a *App) LoginByOAuth(c *request.Context, service string, userData io.Reade
 			map[string]interface{}{"Service": service}, "", http.StatusBadRequest)
 	}
 
+	fmt.Printf("%s", buf)
 	authUser, err1 := provider.GetUserFromJSON(bytes.NewReader(buf.Bytes()), tokenUser)
 	if err1 != nil {
 		return nil, model.NewAppError("LoginByOAuth", "api.user.login_by_oauth.parse.app_error",
@@ -847,6 +848,9 @@ func (a *App) AuthorizeOAuthUser(w http.ResponseWriter, r *http.Request, service
 		return nil, "", stateProps, nil, model.NewAppError("AuthorizeOAuthUser", "api.user.authorize_oauth_user.token_failed.app_error", nil, err.Error(), http.StatusInternalServerError)
 	}
 	defer resp.Body.Close()
+
+	//body, err := ioutil.ReadAll(resp.Body)
+	//fmt.Printf("%s", body)
 
 	var buf bytes.Buffer
 	tee := io.TeeReader(resp.Body, &buf)

@@ -1,0 +1,4 @@
+POST http://localhost:8080/realms/telos/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+ 
+grant_type=authorization_code&code=23501eb9-7f41-4553-a2eb-eb47975b2b66.d955a7cb-ce70-474a-8c0a-b670c5ff4e0b.aa87c174-5fa0-4291-bf4f-3700dfea34a1&client_id=oauthdebugger&client_secret=XmY72RzSlUDFyZUvaUztvudrGFYFhTba&redirect_uri=https%3A%2F%2Foauthdebugger.com%2Fdebug

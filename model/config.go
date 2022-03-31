@@ -6,6 +6,7 @@ package model
 import (
 	"crypto/tls"
 	"encoding/json"
+	"fmt"
 	"io"
 	"math"
 	"net"
@@ -46,6 +47,7 @@ const (
 	PasswordMinimumLength = 5
 
 	ServiceGitlab    = "gitlab"
+	ServiceTelos     = "telos"
 	ServiceGoogle    = "google"
 	ServiceOffice365 = "office365"
 	ServiceOpenid    = "openid"
@@ -3037,6 +3039,7 @@ type Config struct {
 	AnnouncementSettings      AnnouncementSettings
 	ThemeSettings             ThemeSettings
 	GitLabSettings            SSOSettings
+	TelosLoginSettings        SSOSettings
 	GoogleSettings            SSOSettings
 	Office365Settings         Office365Settings
 	OpenIdSettings            SSOSettings
@@ -3089,9 +3092,12 @@ func (o *Config) ToJSONFiltered(tagType, tagValue string) ([]byte, error) {
 }
 
 func (o *Config) GetSSOService(service string) *SSOSettings {
+	fmt.Println("fetching oath service..." + service)
 	switch service {
 	case ServiceGitlab:
 		return &o.GitLabSettings
+	case ServiceTelos:
+		return &o.TelosLoginSettings
 	case ServiceGoogle:
 		return &o.GoogleSettings
 	case ServiceOffice365:
@@ -3135,6 +3141,7 @@ func (o *Config) SetDefaults() {
 	o.Office365Settings.setDefaults()
 	o.Office365Settings.setDefaults()
 	o.GitLabSettings.setDefaults("", "", "", "", "")
+	o.TelosLoginSettings.setDefaults("", "", "", "", "")
 	o.GoogleSettings.setDefaults(GoogleSettingsDefaultScope, GoogleSettingsDefaultAuthEndpoint, GoogleSettingsDefaultTokenEndpoint, GoogleSettingsDefaultUserAPIEndpoint, "")
 	o.OpenIdSettings.setDefaults(OpenidSettingsDefaultScope, "", "", "", "#145DBF")
 	o.ServiceSettings.SetDefaults(isUpdate)
@@ -3788,6 +3795,10 @@ func (o *Config) Sanitize() {
 
 	if o.GitLabSettings.Secret != nil && *o.GitLabSettings.Secret != "" {
 		*o.GitLabSettings.Secret = FakeSetting
+	}
+
+	if o.TelosLoginSettings.Secret != nil && *o.TelosLoginSettings.Secret != "" {
+		*o.TelosLoginSettings.Secret = FakeSetting
 	}
 
 	if o.GoogleSettings.Secret != nil && *o.GoogleSettings.Secret != "" {

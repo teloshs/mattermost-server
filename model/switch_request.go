@@ -17,6 +17,7 @@ func (o *SwitchRequest) EmailToOAuth() bool {
 	return o.CurrentService == UserAuthServiceEmail &&
 		(o.NewService == UserAuthServiceSaml ||
 			o.NewService == UserAuthServiceGitlab ||
+			o.NewService == UserAuthServiceTelos ||
 			o.NewService == ServiceGoogle ||
 			o.NewService == ServiceOffice365 ||
 			o.NewService == ServiceOpenid)
@@ -25,6 +26,7 @@ func (o *SwitchRequest) EmailToOAuth() bool {
 func (o *SwitchRequest) OAuthToEmail() bool {
 	return (o.CurrentService == UserAuthServiceSaml ||
 		o.CurrentService == UserAuthServiceGitlab ||
+		o.CurrentService == UserAuthServiceTelos ||
 		o.CurrentService == ServiceGoogle ||
 		o.CurrentService == ServiceOffice365 ||
 		o.CurrentService == ServiceOpenid) && o.NewService == UserAuthServiceEmail

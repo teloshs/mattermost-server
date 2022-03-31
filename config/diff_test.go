@@ -342,6 +342,27 @@ func TestDiffSanitized(t *testing.T) {
 			"",
 		},
 		{
+			"sensitive TelosLoginSettings.Secret",
+			func() *model.Config {
+				cfg := defaultConfigGen()
+				cfg.TelosLoginSettings.Secret = model.NewString("base")
+				return cfg
+			}(),
+			func() *model.Config {
+				cfg := defaultConfigGen()
+				cfg.TelosLoginSettings.Secret = model.NewString("actual")
+				return cfg
+			}(),
+			ConfigDiffs{
+				{
+					Path:      "TelosLoginSettings.Secret",
+					BaseVal:   model.FakeSetting,
+					ActualVal: model.FakeSetting,
+				},
+			},
+			"",
+		},
+		{
 			"sensitive GoogleSettings.Secret",
 			func() *model.Config {
 				cfg := defaultConfigGen()
